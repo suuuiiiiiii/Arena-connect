@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="kuchModule">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Explore Events</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .section-border {
+      border: 2px solid #0d6efd;
+      border-radius: 15px;
+      padding: 25px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.1);
+    }
+
+    .card-title {
+      font-weight: 600;
+    }
+
+    .card-text {
+      font-size: 14px;
+    }
+
+    body {
+      background-color: #f1f4f9;
+    }
+
+    h2 {
+      color: #0d6efd;
+      font-weight: 700;
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body ng-controller="kuchController" class="bg-light" ng-init="doFetchAlCities()">
+  <div class="container py-5">
+    <div class="section-border">
+      <h2 class="text-center mb-4">Explore Events</h2>
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+          <div class="row g-3">
+            <!-- Category Select -->
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <select name="category" ng-model="selGame" class="form-select" required>
+                <option value="none">Select</option>
+                <option>Football</option>
+                <option>Basketball</option>
+                <option>Cricket</option>
+                <option>Badminton</option>
+                <option>Tennis</option>
+                <option>Hockey</option>
+              </select>
+            </div>
+
+            <!-- City Select -->
+            <div class="col-md-6">
+              <label class="form-label">City</label>
+              <select class="form-select" ng-model="selCity">
+                <option value="none">Select</option>
+                <option ng-repeat="obj in cities" value="{{obj.city}}">{{obj.city}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+          <button class="btn btn-primary w-100" ng-click="doFetchEvents()">Explore</button>
+        </div>
+      </div>
+
+      <!-- Event Cards -->
+      <div class="row">
+        <div class="col-md-3 p-3" ng-repeat="event in jsonArray">
+          <div class="card h-100 shadow-sm border-primary">
+            <img ng-src="{{event.poster_url}}" class="card-img-top" height="150" alt="Event Poster" />
+            <div class="card-body">
+              <h5 class="card-title">{{event.event_name}}</h5>
+              <p class="card-text">{{event.category}}</p>
+              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                ng-click="doShowDetails($index)">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Details -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">{{oneRecord.event_name}}</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-start">
+          <img ng-src="{{oneRecord.poster_url}}" class="img-fluid mb-3" alt="Event Poster" />
+          <p><strong>Sports:</strong> {{oneRecord.sports}}</p>
+          <p><strong>Venue:</strong> {{oneRecord.venue}}</p>
+          <p><strong>Start-Date:</strong> {{oneRecord.start_date}}</p>
+          <p><strong>End-Date:</strong> {{oneRecord.end_date}}</p>
+          <p><strong>Fees:</strong> {{oneRecord.fees}}</p>
+          <p><strong>Description:</strong> {{oneRecord.description}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AngularJS Controller Script -->
+  <script>
+    var kuchModule = angular.module("kuchModule", []);
+
+    kuchModule.controller("kuchController", function ($scope, $http) {
+      $scope.jsonArray = [];
+      $scope.selCity;
+      $scope.selGame;
+
+      $scope.doFetchEvents = function () {
+        var url = "/fetch-eventstoecplore?KuchCity=" + $scope.selCity + "&KuchGame=" + $scope.selGame;
+        $http.get(url).then(function (response) {
+          console.log("Fetched events:", response.data);
+          $scope.jsonArray = response.data;
+        }, function (error) {
+          alert("Error fetching events: " + JSON.stringify(error.data));
+        });
+      };
+
+      $scope.cities = [{}];
+      $scope.doFetchAlCities = function () {
+        var url = "/do-fetch-all-cities";
+        $http.get(url).then(
+          function (response) {
+            console.log("Fetched Cities:", response.data);
+            $scope.cities = response.data;
+          },
+          function (response) {
+            alert(JSON.stringify(response.data));
+          }
+        );
+      };
+
+      $scope.oneRecord = {};
+      $scope.doShowDetails = function (index) {
+        $scope.oneRecord = $scope.jsonArray[index];
+      };
+    });
+  </script>
+</body>
+
+</html>

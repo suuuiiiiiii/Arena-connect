@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        function showPrev(fileRef,prevRef)
+         {
+                         const [file] = fileRef.files
+                            if (file) {
+                                prevRef.src = URL.createObjectURL(file)
+                            }
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <hr><hr>
+         <form action="/signup-server-safe" method="post" enctype="multipart/form-data">
+            <p>
+                signup forum
+            </p>
+            <p>
+                Email ID <input type="text" name="txtemail">
+                 <input type="button" value="Search" id="btnFetchWithAJAX">
+                <span id="errEmail"></span>
+            </p>
+            <p>
+                password <input type="password" name="txtpass">
+            </p>
+            <p>
+                mobile <input type="text" name="txtmob">
+            </p>
+             <p>
+                Upload Profile Pic <br>
+                <input type="file" name="profilePic" id="profilePic" onchange="showPrev(profilePic,prev)"> <br>
+                <img src="pics/customer.jpg" width="100" height="100" id="prev" alt="">
+            </p>
+            <p>
+                <center>
+                    <input type="submit" value="signup now">
+                     <input type="submit" value="delete" formaction="/delete-user">
+                      <input type="submit" value="update" formaction="/update-user">
+                            <input type="submit" value="Show ALL Records" formaction="/show-all">
+                </center>
+            </p>
+            
+            </form><hr><hr>
+
+
+
+
+
+
+
+
+            
+        <form action="/signup-server" >
+            <p>
+                signup forum
+            </p>
+            <p>
+                Email ID <input type="text" name="txtemail">
+            </p>
+            <p>
+                password <input type="password" name="txtpass">
+            </p>
+            <p>
+                mobile <input type="text" name="txtmob">
+            </p>
+             <p>
+                Ur Tech Skills: <br>
+                <input type="checkbox" name="chkWeb" value="Full Stack">Web Development
+                <input type="checkbox" name="chkDsa" value="Data Structures">DSA
+
+            </p>
+            <p>
+                 <p>
+                Occupation: <br>
+                <input type="radio" value="Business" name="radOccu">Busy Ness
+                <input type="radio" value="Naukri" name="radOccu">Job
+
+            </p>
+            <p>
+                Date of Birth: <input type="date" name="dob">
+            </p>
+            <p>
+                City
+                <select name="city">
+                    <option value="none">Select</option>
+                    <option value="City of Lakes">Bathinda</option>
+                    <option value="Party">Chandigarh</option>
+                    <option value="Pink City">Jaipur</option>
+                </select>
+            </p>
+             <p>
+                Cities Visited:
+                <select name="visited" multiple>
+                    <option value="none">Select</option>
+                    <option value="City of Lakes">Bathinda</option>
+                    <option value="Party">Chandigarh</option>
+                    <option value="Pink City">Jaipur</option>
+                </select>
+            </p>
+            <p>
+                <center>
+                    <input type="submit" value="signup now">
+                </center>
+            </p>
+        </form>
+        
+        
+        
+    </center>
+</body>
+</html>

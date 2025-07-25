@@ -1,0 +1,6 @@
+"use strict";loaded_1_20(function(_){var window=this;
+_.k("R3Mh4d");
+var Njd=class extends _.Eh{constructor(a){super(a.Ya);this.handler=null}oa(a){this.handler=a}qd(){this.handler&&this.handler()}};_.G(Njd.prototype,"h5M12e",function(){return this.qd});_.rv(_.Teb,Njd);
+_.l();
+});
+// Google Inc.
