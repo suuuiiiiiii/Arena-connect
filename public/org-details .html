@@ -113,11 +113,18 @@
     <h2>Organizer Details</h2>
     <form id="orgForm" enctype="multipart/form-data" method="post">
       <div class="row g-3">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <label class="form-label">Email ID (Unique)</label>
           <input type="email" class="form-control" name="emailid" id="emailid">
-          <button type="button" class="btn btn-sm btn-secondary" onclick="searchOrg()">Search</button>
+        
         </div>
+
+        <div class="col-md-4">
+          <br>
+             <button type="button" class="btn btn-sm btn-secondary" onclick="searchOrg()">Search</button>
+        </div>
+
+
         <div class="col-md-6">
           <label class="form-label">Organization Name</label>
           <input type="text" class="form-control" name="orgname" id="orgname" required>
