@@ -16,7 +16,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 
 app.use(fileuploader());
-let dbConfig = "mysql://avnadmin:AVNS_bPtaqhiIoQ6wvGqfUVZ@mysql-2a4008a7-thapar-4da4.e.aivencloud.com:28547/defaultdb";
+let dbConfig = "mysql://avnadmin:AVNS_lEbHTP0NcSlHyKW1aIO@mysql-2eb36533-thapar-4da4.i.aivencloud.com:28547/defaultdb";
 app.use(express.json());
 let mySqlVen = mysql2.createConnection(dbConfig);
 mySqlVen.connect(function (errKuch) {
